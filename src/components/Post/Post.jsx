@@ -29,7 +29,7 @@ const Post = ({ post }) => {
     if (liked) {
       // if the post is already liked, send a put request to the backend to decrement the likes count
       const response = await fetch(
-        `http://localhost:8000/api/posts/${post.id}/dislike`,
+        `https://toshaare-api.onrender.com/api/posts/${post.id}/dislike`,
         {
           method: "PUT",
           headers: {
@@ -46,7 +46,7 @@ const Post = ({ post }) => {
     } else {
       // if the post is not liked, send a put request to the backend to increment the likes count
       const response = await fetch(
-        `http://localhost:8000/api/posts/${post.id}/like`,
+        `https://toshaare-api.onrender.com/api/posts/${post.id}/like`,
         {
           method: "PUT",
           headers: {
@@ -71,7 +71,7 @@ const Post = ({ post }) => {
     const token = user && (await user.getIdToken());
     console.log(comment);
     const response = await fetch(
-      `http://localhost:8000/api/posts/${post.id}/comment`,
+      `https://toshaare-api.onrender.com/api/posts/${post.id}/comment`,
       {
         method: "POST",
         body: JSON.stringify(comment),
@@ -100,7 +100,7 @@ const Post = ({ post }) => {
       console.log(token);
       toast.success("Post deleted successfully", { autoClose: 2000 });
       const response = await fetch(
-        `http://localhost:8000/api/posts/${post.id}`,
+        `https://toshaare-api.onrender.com/api/posts/${post.id}`,
         {
           method: "DELETE",
           headers: {

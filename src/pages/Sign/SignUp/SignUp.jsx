@@ -28,7 +28,7 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/users")
+    fetch("https://toshaare-api.onrender.com/api/users")
       .then((res) => res.json())
       .then((data) => {
         setAllUsers(data);
@@ -38,7 +38,7 @@ const SignUp = () => {
 
   const addUser = async (user) => {
     const token = user && (await user.getIdToken());
-    const response = await fetch("http://localhost:8000/api/users", {
+    const response = await fetch("https://toshaare-api.onrender.com/api/users", {
       method: "POST",
       body: JSON.stringify({
         uid: user.uid,

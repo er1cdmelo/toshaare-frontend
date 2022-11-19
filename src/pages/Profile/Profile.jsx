@@ -46,7 +46,7 @@ const Profile = () => {
       const loadUser = async () => {
         const token = user && (await user.getIdToken());
 
-        fetch(`http://localhost:8000/api/users/${usersearch}`, {
+        fetch(`https://toshaare-api.onrender.com/api/users/${usersearch}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const Profile = () => {
             // if the friend has user in his friends array, then add the friend to the friends array
             setFriends([]);
             for(var i=0; i<data.friends.length; i++) {
-              fetch(`http://localhost:8000/api/users/${data.friends[i].username}`, {
+              fetch(`https://toshaare-api.onrender.com/api/users/${data.friends[i].username}`, {
                 method: "GET",
                 headers: {
                   "Content-Type": "application/json",
@@ -125,7 +125,7 @@ const Profile = () => {
 
   const sendFriendRequest = async () => {
     const token = user && (await user.getIdToken());
-    fetch(`http://localhost:8000/api/users/${user.uid}/friends`, {
+    fetch(`https://toshaare-api.onrender.com/api/users/${user.uid}/friends`, {
       method: "PUT",
       body: JSON.stringify({ friendId: thisProfile.uid }),
       headers: {
@@ -143,7 +143,7 @@ const Profile = () => {
   const unfriend = async () => {
     const token = user && (await user.getIdToken());
     window.confirm("Are you sure you want to unfriend this user?") &&
-      fetch(`http://localhost:8000/api/users/${user.uid}/friends`, {
+      fetch(`https://toshaare-api.onrender.com/api/users/${user.uid}/friends`, {
         method: "DELETE",
         body: JSON.stringify({ friendId: thisProfile.uid }),
         headers: {

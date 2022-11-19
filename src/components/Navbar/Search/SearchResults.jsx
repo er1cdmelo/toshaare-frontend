@@ -7,7 +7,7 @@ const SearchResults = ({ text }) => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await fetch("http://localhost:8000/api/users");
+      const res = await fetch("https://toshaare-api.onrender.com/api/users");
       const data = await res.json();
       setAllUsers(data);
     };

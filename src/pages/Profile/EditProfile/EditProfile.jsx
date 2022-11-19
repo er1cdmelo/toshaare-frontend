@@ -28,7 +28,7 @@ const EditProfile = ({ closeModal }) => {
 
   const patchProfile = async () => {
     const token = user && (await user.getIdToken());
-    const response = await fetch(`http://localhost:8000/api/users/${user.uid}`, {
+    const response = await fetch(`https://toshaare-api.onrender.com/api/users/${user.uid}`, {
       method: "POST",
       body: JSON.stringify({
         name: name || profile.name,

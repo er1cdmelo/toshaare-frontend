@@ -22,7 +22,7 @@ const AddPost = ({ add }) => {
     if (post.body.length < 1) return;
     const token = user && (await user.getIdToken());
     setLoading(true);
-    fetch("http://localhost:8000/api/posts", {
+    fetch("https://toshaare-api.onrender.com/api/posts", {
       method: "POST",
       body: JSON.stringify(post),
       headers: {

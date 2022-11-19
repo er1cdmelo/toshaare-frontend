@@ -21,7 +21,7 @@ const Feed = () => {
 
     const loadFeed = async () => {
       const token = user && (await user.getIdToken());
-      const response = await fetch(`http://localhost:8000/api/posts`, {
+      const response = await fetch(`https://toshaare-api.onrender.com/api/posts`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const Feed = () => {
     if (user) {
       const loadUser = async () => {
         const token = user && (await user.getIdToken());
-        fetch(`http://localhost:8000/api/users/${user.uid}`, {
+        fetch(`https://toshaare-api.onrender.com/api/users/${user.uid}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

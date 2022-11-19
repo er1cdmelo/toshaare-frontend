@@ -179,52 +179,66 @@ export const FriendsContainer = styled.div`
       color: #666;
     }
   }
-  a {
-    height: 180px;
-    padding: 0;
+
+  .friends {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1em;
+    width: 100%;
     justify-content: center;
-    text-decoration: none;
-    transition: transform 0.3s;
 
-    &:hover {
-      /* create a fly effect */
-      transform: scale(1.1);
-
-    }
-
-    .friendCard {
+    a {
+      height: 180px;
+      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      gap: 10px;
-      margin: 1em 0;
-      padding: 1em 0;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      width: 200px;
-      height: 100%;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      transition: transform 0.3s;
 
-      img {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-
-        &:hover {
-          cursor: pointer;
-
-          opacity: 0.8;
-        }
+      &:hover {
+        /* create a fly effect */
+        transform: scale(1.1);
       }
 
-      span {
-        font-size: 1.2em;
-        color: #666;
+      .friendCard {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        margin: 1em 0;
+        padding: 0;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        width: 200px;
+        height: 100%;
+        transition: background-color 0.3s;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          background-color: #fff;
+        }
+
+        img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          object-fit: cover;
+
+          &:hover {
+            cursor: pointer;
+
+            opacity: 0.8;
+          }
+        }
+
+        span {
+          font-size: 1.2em;
+          color: #666;
+        }
       }
     }
   }

@@ -30,8 +30,8 @@ const Profile = () => {
   const navigate = useNavigate();
   const { usersearch } = useParams();
 
-  
   const profile = useProfileStore((state) => state.profile);
+  const setProfile = useProfileStore((state) => state.setProfile);
   const [thisProfile, setThisProfile] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -40,9 +40,24 @@ const Profile = () => {
 
   const auth = getAuth();
 
+  const updateMyProfile = async () => {
+    const token = user && (await user.getIdToken());
+    fetch(`https://toshaare-api.onrender.com/api/users/${user.uid}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authToken: token,
+        reqm: "uid",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setProfile(data);
+      });
+  };
+
   useEffect(() => {
     if (usersearch) {
-
       const loadUser = async () => {
         const token = user && (await user.getIdToken());
 
@@ -61,26 +76,7 @@ const Profile = () => {
             setPosts(data.posts);
             // create a loop in user friends array and fetch the user data for each friend checking if the friend has user in his friends array
             // if the friend has user in his friends array, then add the friend to the friends array
-            setFriends([]);
-            for(var i=0; i<data.friends.length; i++) {
-              fetch(`https://toshaare-api.onrender.com/api/users/${data.friends[i].username}`, {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                  authToken: token,
-                  reqm: "username",
-                },
-              })
-                .then(async (res) => await res.json())
-                .then((ddata) => {
-                  if(ddata.friends.find(f => f.uid === data.uid)) {
-                    // if the friend is not already in the friends state array, then add the friend to the friends state array
-                    if(!friends.find(f => f.uid === ddata.uid)) {
-                      setFriends(friends => [...friends, ddata]);
-                    }
-                  }
-                });
-            }
+            setFriends(data.friends);
           })
           .catch((err) => console.log(err));
       };
@@ -94,6 +90,21 @@ const Profile = () => {
       setOwner(true);
     }
   }, [profile, user, usersearch]);
+
+  useEffect(() => {
+    console.log(friends);
+    if (user && friends.length) {
+      friends.forEach((friend) => {
+        if (friend.friends.find((f) => f.uid === thisProfile.uid)) {
+          // if friends array hasn't this friends, so insert
+          if (!friends.find((fr) => fr.uid === friend.uid)) {
+            console.log("friend found");
+            setFriends(...friends, friend);
+          }
+        }
+      });
+    }
+  }, [friends, thisProfile]);
 
   const logout = () => {
     signOut(auth)
@@ -136,6 +147,7 @@ const Profile = () => {
       .then((res) => res.json())
       .then((data) => {
         toast.success("Friend added!", { autoClose: 1000 });
+        updateMyProfile();
       })
       .catch((err) => console.log(err));
   };
@@ -156,6 +168,7 @@ const Profile = () => {
           toast.success("You removed this user from your friends!", {
             autoClose: 1000,
           });
+          updateMyProfile();
         })
         .catch((err) => console.log(err));
   };
@@ -247,15 +260,18 @@ const Profile = () => {
           </Container>
           <FriendsContainer>
             <h1>Friends - {String(friends.length)}</h1>
+
             {friends.length ? (
-              friends.map((friend, index) => (
-                <Link to={`/profile/${friend.username}`} key={index}>
-                  <div className="friendCard" key={friend.uid}>
-                    <img src={friend.picture} alt={friend.name} />
-                    <span>{friend.name}</span>
-                  </div>
-                </Link>
-              ))
+              <div className="friends">
+                {friends.map((friend, index) => (
+                  <Link to={`/profile/${friend.username}`} key={index}>
+                    <div className="friendCard" key={friend.uid}>
+                      <img src={friend.picture} alt={friend.name} />
+                      <span>{friend.name}</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             ) : (
               <div className="no-data">
                 <img src={NoFriends} alt="No friends" />

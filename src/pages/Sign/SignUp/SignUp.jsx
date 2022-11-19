@@ -45,6 +45,7 @@ const SignUp = () => {
         email: user.email,
         name: name,
         username: username,
+        bio: "Hi! I'm using ToShaare",
         picture:
           user.photoURL ||
           "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",

@@ -5,6 +5,7 @@ const useProfileStore = create((set) => ({
   profile: {
     name: "",
     username: "",
+    bio: "",
     picture:"",
     email: "",
   },

@@ -21,7 +21,7 @@ const Feed = () => {
 
     const loadFeed = async () => {
       const token = user && (await user.getIdToken());
-      const response = await fetch(`/api/posts`, {
+      const response = await fetch(`http://localhost:8000/api/posts`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

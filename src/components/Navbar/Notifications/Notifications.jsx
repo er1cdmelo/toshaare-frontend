@@ -1,10 +1,13 @@
 import { NotificationsContainer } from "./styles"
 import useProfileStore from "../../../store/store"
 import { useState, useEffect } from "react"
+import { getIdToken } from "firebase/auth"
+import useUser from "../../../hooks/useUser"
 
 const Notifications = () => {
   const profile = useProfileStore((state) => state.profile)
   const [notifications, setNotifications] = useState([])
+  const { user } = useUser()
 
   useEffect(() => {
     if (profile) {
@@ -12,6 +15,29 @@ const Notifications = () => {
       console.log(profile.notifications)
     }
   }, [profile])
+
+  useEffect(() => {
+    // on notification click, set all notifications to read
+    const handleNotificationClick = async () => {
+    if (profile) {
+      const token = user && (await user.getIdToken())
+      fetch(`/api/users/${user.uid}/notifications`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          authToken: profile.token,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+        })
+        .catch((err) => console.log(err))
+    }
+  }
+
+  handleNotificationClick()
+  }, [notifications])
 
   console.log('Notifications bar appeared')
 

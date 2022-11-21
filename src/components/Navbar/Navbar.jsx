@@ -71,6 +71,9 @@ const Navbar = () => {
           <button
             className="notifications-btn btn"
             onClick={() => setShowNotifications(!showNotifications)}
+            newNotifications={
+              profile.notifications && profile.notifications.filter((n) => !n.read).length
+            }
           >
             <FaBell />
           </button>

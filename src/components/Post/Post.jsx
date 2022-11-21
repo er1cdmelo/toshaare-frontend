@@ -186,6 +186,7 @@ const Post = ({ post }) => {
             <span className="time">
               {
                 // calculate the time difference between the current time and the post time
+                post && post.createdAt &&
                 handleDate(post.createdAt)
               }
             </span>

@@ -48,12 +48,14 @@ export const PostContainer = styled.div`
     padding: 0.5em 1em;
     border-radius: 10px;
 
+
     a {
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
       color: #000;
+      margin-right: .3em;
 
       img {
         width: 42px;
@@ -83,6 +85,14 @@ export const PostContainer = styled.div`
         margin: 0;
         padding: 0;
       }
+    }
+
+    .time {
+      display: flex;
+      font-weight: 600;
+      font-size: 0.8em;
+      color: #999;
+      padding-top: 0.3em;
     }
   }
 

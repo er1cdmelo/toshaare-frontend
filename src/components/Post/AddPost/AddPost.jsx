@@ -15,7 +15,7 @@ const AddPost = ({ add }) => {
   const { user } = useUser();
 
   const handleType = (e) => {
-    setPost({ ...post, body: e.target.value });
+    setPost({body: e.target.value });
   };
 
   const handleSubmit = async () => {
@@ -23,6 +23,7 @@ const AddPost = ({ add }) => {
     if (post.body.length < 1) return;
     const token = user && (await user.getIdToken());
     setLoading(true);
+    setPost({body: "" });
     await profile.username &&
     fetch("https://toshaare-api.onrender.com/api/posts", {
       method: "POST",

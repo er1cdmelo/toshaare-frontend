@@ -18,7 +18,7 @@ const SearchResults = ({ text }) => {
     <SearchContainer>
       <ul>
         {allUsers.length &&
-          text.length > 3 &&
+          text.length > 2 &&
           allUsers
             .filter((user) =>
               user.username.toLowerCase().includes(text.toLowerCase())

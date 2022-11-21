@@ -7,12 +7,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getIdToken } from "firebase/auth";
 import useProfileStore from "../../store/store";
+import { CgSearchLoading } from "react-icons/cg";
+import NoData from "../../assets/no-data.svg";
 
 const Feed = () => {
   const setProfile = useProfileStore((state) => state.setProfile);
   const profile = useProfileStore((state) => state.profile);
   const [posts, setPosts] = useState([]);
-  const { user, loading } = useUser();
+  const [loading, setLoading] = useState(true);
+  const { user } = useUser();
   const rootURL = process.env.REACT_APP_SERVER_URL
     ? process.env.REACT_APP_SERVER_URL
     : 'http://localhost:8000';
@@ -57,6 +60,7 @@ const Feed = () => {
           .then((res) => res.json())
           .then((data) => {
             setProfile(data);
+            setLoading(false);
           })
           .catch((err) => console.log(err));
       };
@@ -68,8 +72,25 @@ const Feed = () => {
     <Container>
       <ToastContainer />
       <AddPost add={newPost} />
-      {posts &&
-        posts.map((post) => <Post key={post.id} post={post} />)}
+      {!loading ?
+        (<>
+        {posts.length > 0 ? (
+          posts.map((post) => <Post key={post.id} post={post} />)
+        ) : (
+          <div className="no-posts">
+            <img src={NoData} alt="No posts" />
+            <h1>No posts yet...</h1>
+          </div>
+          )}
+        </>) :
+        (
+          <div className="loading">
+            <CgSearchLoading />
+            <h2>
+              Loading posts...
+            </h2>
+          </div>
+        )}
     </Container>
   );
 };

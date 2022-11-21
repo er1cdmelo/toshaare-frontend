@@ -36,7 +36,6 @@ export const NotificationsContainer = styled.div`
   ul {
     color: #000;
     width: 100%;
-    border: 1px solid #000;
 
     .notification {
       display: flex;

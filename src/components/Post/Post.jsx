@@ -121,6 +121,49 @@ const Post = ({ post }) => {
     }
   };
 
+  const handleDate = (date) => {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    return new Date().getTime() - new Date(date).getTime() < 60000
+      ? "Just now"
+      : new Date().getTime() - new Date(date).getTime() < 3600000
+      ? `· ${Math.floor(
+          (new Date().getTime() - new Date(date).getTime()) / 60000
+        )}m`
+      : new Date().getTime() - new Date(date).getTime() < 86400000
+      ? `· ${Math.floor(
+          (new Date().getTime() - new Date(date).getTime()) / 3600000
+        )}h`
+      : new Date().getTime() - new Date(date).getTime() < 604800000
+      ? `· ${Math.floor(
+          (new Date().getTime() - new Date(date).getTime()) / 86400000
+        )}d`
+      : new Date().getTime() - new Date(date).getTime() < 2419200000
+      ? `· ${new Date(date).getDate()} ${monthNames[
+          new Date(date).getMonth()
+        ].substring(0, 3)}`
+      : new Date().getTime() - new Date(date).getTime() < 29030400000
+      ? `· ${new Date(date).getDate()} ${monthNames[
+          new Date(date).getMonth()
+        ].substring(0, 3)}`
+      : `· ${new Date(date).getDate()} ${monthNames[
+          new Date(date).getMonth()
+        ].substring(0, 3)} ${new Date(date).getFullYear()}`;
+  };
+
   return (
     <PostContainer show={showPost}>
       {post && (
@@ -140,6 +183,12 @@ const Post = ({ post }) => {
                 <span>@{post.user.username}</span>
               </span>
             </Link>
+            <span className="time">
+              {
+                // calculate the time difference between the current time and the post time
+                handleDate(post.createdAt)
+              }
+            </span>
           </span>
           <Options post={post} handleDelete={handleDelete} />
           <p

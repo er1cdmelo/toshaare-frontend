@@ -71,6 +71,7 @@ const Profile = () => {
         })
           .then(async (res) => await res.json())
           .then((data) => {
+            console.log(data);
             setThisProfile(data);
             setOwner(data.uid === user.uid);
             setPosts(data.posts);
@@ -189,7 +190,7 @@ const Profile = () => {
               />
               <h2>{thisProfile.name}</h2>
               <span>@{thisProfile.username}</span>
-              <p>{thisProfile.bio}</p>
+              <p>{thisProfile.bio || "Hi there! I'm using ToShaare."}</p>
               {owner && (
                 <div className="warnings">
                   <div className="warn">

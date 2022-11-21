@@ -9,8 +9,8 @@ import useProfileStore from "../../../store/store";
 
 const AddPost = ({ add }) => {
   const profile = useProfileStore((state) => state.profile);
-  const [post, setPost] = useState({ body: "", username: profile && profile.username });
   const [loading, setLoading] = useState(false);
+  const [post, setPost] = useState({ body: ""});
 
   const { user } = useUser();
 
@@ -19,12 +19,14 @@ const AddPost = ({ add }) => {
   };
 
   const handleSubmit = async () => {
+    console.log(post)
     if (post.body.length < 1) return;
     const token = user && (await user.getIdToken());
     setLoading(true);
+    await profile.username &&
     fetch("https://toshaare-api.onrender.com/api/posts", {
       method: "POST",
-      body: JSON.stringify(post),
+      body: JSON.stringify({...post, username: profile.username}),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         authToken: token,

@@ -39,6 +39,7 @@ export const Comment = styled.div`
         height: 40px;
         border-radius: 50%;
         border: 1px solid #C5C5C5;
+        object-fit: cover;
     }
 
     .comment {

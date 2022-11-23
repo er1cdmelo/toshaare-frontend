@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import { FaBell, FaSearch } from "react-icons/fa";
 import Notifications from "./Notifications/Notifications";
 import SearchResults from "./Search/SearchResults";
+import Logo from '../../assets/dark-logo.png'
 
 const Navbar = () => {
   const { user } = useUser();
@@ -44,7 +45,8 @@ const Navbar = () => {
 
   return (
     <Nav>
-      <Link to="/">
+      <Link to="/" className="logo">
+        <img src={Logo} alt="logo" />
         <h1>ToShaare</h1>
       </Link>
       {user && profile && (

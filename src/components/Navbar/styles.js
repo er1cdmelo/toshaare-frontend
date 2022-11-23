@@ -23,6 +23,37 @@ export const Nav = styled.header`
         display: flex;
         align-items: center;
         justify-content: center;
+
+        
+        &.logo {
+            h1 {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.8em;
+            overflow: hidden;
+            width: 0;
+            
+            white-space: nowrap;
+            transition: all 1s ease-in-out;
+
+            &:hover {
+                width: 100px;
+            }
+        }
+
+        img {
+            max-width: 60px;
+            transition: all 1s ease-in-out;
+
+            &:hover {
+                transform: scale(1.1) rotate(360deg);
+            }
+
+            &:hover + h1 {
+                width: 100px;
+            }
+        }
+        }
+        
     }
 
     .user-info {

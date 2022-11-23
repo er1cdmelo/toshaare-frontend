@@ -17,7 +17,7 @@ const Feed = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useUser();
   const rootURL = process.env.REACT_APP_SERVER_URL
-    ? process.env.REACT_APP_SERVER_URL
+    ? 'https://toshaare-api.onrender.com/'
     : 'http://localhost:8000';
 
   useEffect(() => {

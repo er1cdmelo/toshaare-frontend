@@ -3,10 +3,10 @@ import create from "zustand";
 
 const useProfileStore = create((set) => ({
   profile: {
-    name: "",
-    username: "",
+    name: "Guest",
+    username: "guestuser",
     bio: "",
-    picture:"",
+    picture:"https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
     email: "",
   },
   setProfile: (profileSet) => {

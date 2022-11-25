@@ -2,6 +2,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import RoutesPath from "./routes/RoutesPath";
 import Navbar from "./components/Navbar/Navbar";
+import Mnavbar from "./components/Mobile/Mnavbar/Mnavbar";
 import styled from "styled-components";
 
 // create a styled component for the main content
@@ -20,6 +21,7 @@ function App() {
         <ToastContainer autoClose={2000} />
         <Navbar />
         <RoutesPath />
+        <Mnavbar />
       </MainContent>
     </Router>
   );

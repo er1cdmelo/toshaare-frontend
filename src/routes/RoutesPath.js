@@ -4,6 +4,7 @@ import SignIn from "../pages/Sign/SignIn/SignIn";
 import SignUp from "../pages/Sign/SignUp/SignUp";
 import Feed from "../pages/Feed/Feed";
 import Profile from "../pages/Profile/Profile";
+import Search from "../pages/Search/Search";
 
 const routes = () => {
   return (
@@ -18,6 +19,9 @@ const routes = () => {
         </Route>
         <Route  path="/" element={<PrivateRoutes />}>
           <Route path="/profile/" element={<Profile />} />
+        </Route>
+        <Route  path="/" element={<PrivateRoutes />}>
+          <Route path="/search" element={<Search />} />
         </Route>
       </Routes>
   );

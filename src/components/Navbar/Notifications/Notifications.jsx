@@ -42,7 +42,7 @@ const Notifications = () => {
   console.log('Notifications bar appeared')
 
   return (
-    <NotificationsContainer>
+    <NotificationsContainer className="notif">
       <h1>Notifications</h1>
       {notifications.length ? (
         <ul>

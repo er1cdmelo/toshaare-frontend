@@ -14,24 +14,33 @@ const SearchResults = ({ text }) => {
     if (!allUsers.length) fetchUsers();
   }, [text]);
 
+  const filteredUsers = () => {
+    return (
+      (allUsers.length &&
+        text.length > 2 &&
+        allUsers
+          .filter((user) =>
+            user.username.toLowerCase().includes(text.toLowerCase())
+          )
+          .map(
+            (user) =>
+              (
+                <Link to={`/profile/${user.username}`}>
+                  <li key={user.id}>
+                    <img src={user.picture} alt="user-pic" />
+                    <p>{user.username}</p>
+                  </li>
+                </Link>
+              ) || "Searching"
+          )) || <p>No results</p>
+    );
+  };
+
   return (
     <SearchContainer>
-      <ul>
-        {allUsers.length &&
-          text.length > 2 &&
-          allUsers
-            .filter((user) =>
-              user.username.toLowerCase().includes(text.toLowerCase())
-            )
-            .map((user) => (
-              <Link to={`/profile/${user.username}`}>
-                <li key={user.id}>
-                  <img src={user.picture} alt="user-pic" />
-                  <p>{user.username}</p>
-                </li>
-              </Link>
-            ))}
-      </ul>
+      <ul>{
+        filteredUsers().length  ? filteredUsers() : <p>No results</p>
+        }</ul>
     </SearchContainer>
   );
 };

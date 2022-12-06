@@ -24,6 +24,7 @@ const Feed = () => {
 
     const loadFeed = async () => {
       const token = user && (await user.getIdToken());
+      console.log('carregando...')
       const response = await fetch(`https://toshaare-api.onrender.com/api/posts`, {
         method: "GET",
         headers: {
@@ -33,6 +34,8 @@ const Feed = () => {
       });
       const data = await response.json();
       setPosts(data.reverse());
+      setLoading(false);
+      console.log(data)
     };
     if (!user) {
       return;
@@ -44,6 +47,12 @@ const Feed = () => {
   const newPost = (post) => {
     setPosts([post, ...posts ]);
   };
+
+  useEffect(() => {
+    if (posts) {
+      console.log(posts)
+    }
+  }, [posts]);
 
   useEffect(() => {
     if (user) {

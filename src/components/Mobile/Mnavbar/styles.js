@@ -39,9 +39,17 @@ export const NavbarContainer = styled.nav`
     align-items: center;
     width: 30%;
 
-    .notif {
+    .friendsContainer, .notifContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .notif, .friends {
       top: -540%;
       z-index: 1;
+      margin: 0;
+      padding: 0;
 
       ul {
         li {
@@ -56,17 +64,16 @@ export const NavbarContainer = styled.nav`
     }
   }
 
-  .indicator-not {
+  .indicator-not, .indicator-fri {
     /* make it a triangle */
     width: 0;
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 20px solid #f05a5b;
+    border-top: 25px solid #f05a5b;
     position: absolute;
-    top: -20px;
+    top: -25px;
     margin-left: 5px;
-
   }
 
   .left,

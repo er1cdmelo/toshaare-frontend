@@ -55,7 +55,7 @@ export const PostForm = styled.div`
     height: 50px;
     border: none;
     border-radius: 10px;
-    background-color: #000;
+    background-color: #1d2f6f;
     color: #fff;
     font-size: 1.2em;
     font-weight: 700;
@@ -64,9 +64,11 @@ export const PostForm = styled.div`
     align-items: center;
     justify-content: center;
     gap: 0.5em;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
-      background-color: #333;
+      /* make the button lighter when hovered */
+      background-color: #2d3f7f;
     }
   }
 `;

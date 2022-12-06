@@ -71,7 +71,7 @@ const Profile = () => {
         })
           .then(async (res) => await res.json())
           .then((data) => {
-            console.log(data);
+            
             setThisProfile(data);
             setOwner(data.uid === user.uid);
             setPosts(data.posts);
@@ -93,13 +93,13 @@ const Profile = () => {
   }, [profile, user, usersearch]);
 
   useEffect(() => {
-    console.log(friends);
+   
     if (user && friends.length) {
       friends.forEach((friend) => {
         if (friend.friends.find((f) => f.uid === thisProfile.uid)) {
           // if friends array hasn't this friends, so insert
           if (!friends.find((fr) => fr.uid === friend.uid)) {
-            console.log("friend found");
+          
             setFriends(...friends, friend);
           }
         }

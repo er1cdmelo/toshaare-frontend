@@ -4,13 +4,67 @@ import { RiGroupLine } from "react-icons/ri";
 import { NavbarContainer } from "./styles";
 import useProfileStore from "../../../store/store";
 import { useLocation, Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Notifications from "../../Navbar/Notifications/Notifications";
+import Friends from "../../Navbar/Friends/Friends";
 
 const Navbar = () => {
   const location = useLocation();
   const { profile } = useProfileStore();
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
+
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          console.log(ref.current.classList);
+          if (ref.current.className.includes("friendsContainer")) {
+            setShowFriends(false);
+          } else if (ref.current.className.includes("notifContainer")) {
+            setShowNotifications(false);
+          }
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+  function useOutsideAlerterr(ref) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          console.log(ref.current.classList);
+          if (ref.current.className.includes("friendsContainer")) {
+            setShowFriends(false);
+          } else if (ref.current.className.includes("notifContainer")) {
+            setShowNotifications(false);
+          }
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
+  const wrapperRef = useRef(null);
+  const wrapperReff = useRef(null);
+  useOutsideAlerter(wrapperRef);
+  useOutsideAlerterr(wrapperReff);
 
   return (
     <NavbarContainer>
@@ -34,16 +88,27 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="right">
-        {showNotifications && (
-          <>
-            <Notifications />
-            <div className="indicator-not"></div>
-          </>
-        )}
-        <FaRegBell
-          onClick={() => setShowNotifications(!showNotifications)}
-        ></FaRegBell>
-        <RiGroupLine />
+        <div className="notifContainer" ref={wrapperReff}>
+          {showNotifications && (
+            <>
+              <Notifications className="notifications" />
+              <div className="indicator-not"></div>
+            </>
+          )}
+          <FaRegBell
+            onClick={() => setShowNotifications(!showNotifications)}
+          ></FaRegBell>
+        </div>
+
+        <div className="friendsContainer" ref={wrapperRef}>
+          {showFriends && (
+            <>
+              <Friends />
+              <div className="indicator-fri"></div>
+            </>
+          )}
+          <RiGroupLine onClick={() => setShowFriends(!showFriends)} />
+        </div>
       </div>
     </NavbarContainer>
   );

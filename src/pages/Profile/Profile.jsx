@@ -266,9 +266,8 @@ const Profile = () => {
               <div className="friends">
                 {friends.map((friend, index) => (
                   <Link to={`/profile/${friend.username}`} key={index}>
-                    <div className="friendCard" key={friend.uid}>
+                    <div className="friendCard" key={friend.uid} title={friend.name}>
                       <img src={friend.picture} alt={friend.name} />
-                      <span>{friend.name}</span>
                     </div>
                   </Link>
                 ))}

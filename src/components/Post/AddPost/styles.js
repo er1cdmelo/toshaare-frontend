@@ -13,7 +13,7 @@ export const PostForm = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  margin: 20px 0;
+  margin-bottom: 1em;
   gap: 1em;
 
   .user-info {

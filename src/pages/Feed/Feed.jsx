@@ -3,6 +3,7 @@ import { Container } from "./styles";
 import useUser from "../../hooks/useUser";
 import Post from "../../components/Post/Post";
 import AddPost from "../../components/Post/AddPost/AddPost";
+import Friends from "../../components/Navbar/Friends/Friends";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getIdToken } from "firebase/auth";
@@ -100,6 +101,7 @@ const Feed = () => {
             </h2>
           </div>
         )}
+        <Friends />
     </Container>
   );
 };

@@ -9,7 +9,7 @@ export const NavbarContainer = styled.nav`
   font-size: 1.2rem;
   position: sticky;
   bottom: 10px;
-  z-index: 999;
+  z-index: 8;
   width: 95%;
   max-width: 500px;
   margin: 0 auto;

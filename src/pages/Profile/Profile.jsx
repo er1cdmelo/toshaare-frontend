@@ -71,7 +71,6 @@ const Profile = () => {
         })
           .then(async (res) => await res.json())
           .then((data) => {
-            
             setThisProfile(data);
             setOwner(data.uid === user.uid);
             setPosts(data.posts);
@@ -93,13 +92,12 @@ const Profile = () => {
   }, [profile, user, usersearch]);
 
   useEffect(() => {
-   
+    user ? console.log(user) : console.log("no user");
     if (user && friends.length) {
       friends.forEach((friend) => {
         if (friend.friends.find((f) => f.uid === thisProfile.uid)) {
           // if friends array hasn't this friends, so insert
           if (!friends.find((fr) => fr.uid === friend.uid)) {
-          
             setFriends(...friends, friend);
           }
         }
@@ -113,6 +111,14 @@ const Profile = () => {
         // Sign-out successful.
         toast.success("Logged out successfully!", { autoClose: 1000 });
         navigate("/signin");
+        setProfile({
+          name: "Guest",
+          username: "guestuser",
+          bio: "",
+          picture:
+            "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
+          email: "",
+        });
       })
       .catch((error) => {
         // An error happened.
@@ -179,7 +185,7 @@ const Profile = () => {
       {thisProfile && user ? (
         <>
           {showModal && <EditProfile closeModal={() => setShowModal(false)} />}
-          <Container>
+          <Container className="master-container" show={showModal}>
             <div className="user-info">
               <img
                 src={
@@ -266,7 +272,11 @@ const Profile = () => {
               <div className="friends">
                 {friends.map((friend, index) => (
                   <Link to={`/profile/${friend.username}`} key={index}>
-                    <div className="friendCard" key={friend.uid} title={friend.name}>
+                    <div
+                      className="friendCard"
+                      key={friend.uid}
+                      title={friend.name}
+                    >
                       <img src={friend.picture} alt={friend.name} />
                     </div>
                   </Link>

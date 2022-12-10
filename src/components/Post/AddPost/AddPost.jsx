@@ -27,7 +27,7 @@ const AddPost = ({ add }) => {
     await profile.username &&
     fetch("https://toshaare-api.onrender.com/api/posts", {
       method: "POST",
-      body: JSON.stringify({...post, username: profile.username}),
+      body: JSON.stringify({...post, username: profile.username, picture: profile.picture}),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         authToken: token,
@@ -39,6 +39,7 @@ const AddPost = ({ add }) => {
         console.log(data);
         add(data);
         setLoading(false);
+        setPost({body: "" });
       })
       .catch((err) =>
         toast.error("Something went wrong, please try again", {
@@ -62,9 +63,10 @@ const AddPost = ({ add }) => {
           <h3>{user.displayName ? user.displayName : "Guest"}</h3>
         </div>
       )}
-      <input
+      <textarea
         type="message"
         placeholder="Share your post"
+        value={post.body}
         onChange={(e) => handleType(e)}
       />
       <button onClick={() => handleSubmit()}>

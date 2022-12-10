@@ -1,5 +1,5 @@
 import useUser from "../../hooks/useUser";
-import { PostContainer, LikeButton } from "./styles";
+import { PostContainer, LikeButton, UserInfo, UserName } from "./styles";
 import { useState } from "react";
 import Comments from "./Comments/Comments";
 import Options from "./Options/Options";
@@ -178,18 +178,19 @@ const Post = ({ post }) => {
                 alt="avatar"
                 loading="lazy"
               />
-              <span className="name-user">
-                <h3>{post.user.name || "GuestUser"}</h3>
+              <UserInfo>
+                <UserName
+                  date={
+                    // calculate the time difference between the current time and the post time
+                    post && post.createdAt && handleDate(post.createdAt)
+                  }
+                  teste='teste'
+                >
+                  {post.user.name || "GuestUser"}
+                </UserName>
                 <span>@{post.user.username}</span>
-              </span>
+              </UserInfo>
             </Link>
-            <span className="time">
-              {
-                // calculate the time difference between the current time and the post time
-                post && post.createdAt &&
-                handleDate(post.createdAt)
-              }
-            </span>
           </span>
           <Options post={post} handleDelete={handleDelete} />
           <p

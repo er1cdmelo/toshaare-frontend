@@ -48,14 +48,13 @@ export const PostContainer = styled.div`
     padding: 0.5em 1em;
     border-radius: 10px;
 
-
     a {
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
       color: #000;
-      margin-right: .3em;
+      margin-right: 0.3em;
 
       img {
         width: 42px;
@@ -64,35 +63,6 @@ export const PostContainer = styled.div`
         object-fit: cover;
         margin-right: 0.5em;
       }
-    }
-
-    .name-user {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 0;
-
-      h3 {
-        font-size: 1em;
-        margin: 0;
-        padding: 0;
-      }
-
-      span {
-        font-size: 0.8em;
-        color: #999;
-        margin: 0;
-        padding: 0;
-      }
-    }
-
-    .time {
-      display: flex;
-      font-weight: 600;
-      font-size: 0.8em;
-      color: #999;
-      padding-top: 0.3em;
     }
   }
 
@@ -138,4 +108,35 @@ export const LikeButton = styled.button`
   &:hover {
     background-color: #f1f1f1;
   }
+`;
+
+export const UserInfo = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+
+  span {
+    font-size: 0.8em;
+    color: #999;
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+export const UserName = styled.h3`
+  &:after {
+    content: '${props => props.date}';
+
+    font-weight: 600;
+    font-size: 0.8em;
+    color: #999;
+    margin-left: 0.5em;
+  }
+  
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+
 `;

@@ -21,6 +21,8 @@ const Feed = () => {
     ? 'https://toshaare-api.onrender.com/'
     : 'http://localhost:8000';
 
+  console.log(profile)
+
   useEffect(() => {
 
     const loadFeed = async () => {

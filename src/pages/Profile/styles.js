@@ -6,6 +6,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 30px;
+  overflow: ${({ show }) => (show ? "hidden" : "auto")};
 
   .user-info {
     display: flex;

@@ -4,6 +4,7 @@ import RoutesPath from "./routes/RoutesPath";
 import Navbar from "./components/Navbar/Navbar";
 import Mnavbar from "./components/Mobile/Mnavbar/Mnavbar";
 import styled from "styled-components";
+import useProfileStore from "./store/store.js";
 
 // create a styled component for the main content
 const MainContent = styled.main`
@@ -14,14 +15,22 @@ const MainContent = styled.main`
   align-items: center;
 `;
 
+
 function App() {
+  
+  const profile = useProfileStore((state) => state.profile);
+
+  
+
   return (
     <Router>
       <MainContent>
         <ToastContainer autoClose={2000} />
         <Navbar />
         <RoutesPath />
-        <Mnavbar />
+        {
+          profile.name !== "Guest" ? <Mnavbar /> : null
+        }
       </MainContent>
     </Router>
   );

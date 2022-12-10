@@ -7,7 +7,7 @@ import useProfileStore from "../../../store/store";
 const Comments = ({ comments, handleComment }) => {
   const profile = useProfileStore((state) => state.profile);
   comments = comments ? comments : [];
-  const [comment, setComment] = useState({ body: "", username: profile && profile.username });
+  const [comment, setComment] = useState({ body: "", username: profile && profile.username, picture: profile && profile.picture, bName: profile && profile.name });
 
   return (
     <CommentsContainer>

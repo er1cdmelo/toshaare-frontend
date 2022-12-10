@@ -27,7 +27,7 @@ const AddPost = ({ add }) => {
     await profile.username &&
     fetch("https://toshaare-api.onrender.com/api/posts", {
       method: "POST",
-      body: JSON.stringify({...post, username: profile.username, picture: profile.picture}),
+      body: JSON.stringify({...post, username: profile.username, picture: profile.picture, bName: profile.name}),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         authToken: token,

@@ -15,7 +15,7 @@ const Comments = ({ postID, comments, handleComment }) => {
 
   const handleDelete = async (id)  => {
     const token = user && (await user.getIdToken());
-    fetch(`http://localhost:8000/api/posts/${postID}/comment/${id}`, 
+    fetch(`https://toshaare-api.onrender.com/api/posts/${postID}/comment/${id}`, 
     {
       method: "DELETE",
       headers: {

@@ -12,6 +12,7 @@ const Navbar = () => {
   const location = useLocation();
   const { profile } = useProfileStore();
   const [showNotifications, setShowNotifications] = useState(false);
+  const [newNotif, setNewNotif] = useState([]);
   const [showFriends, setShowFriends] = useState(false);
 
   function useOutsideAlerter(ref) {
@@ -21,7 +22,6 @@ const Navbar = () => {
        */
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          console.log(ref.current.classList);
           if (ref.current.className.includes("friendsContainer")) {
             setShowFriends(false);
           } else if (ref.current.className.includes("notifContainer")) {
@@ -44,7 +44,6 @@ const Navbar = () => {
        */
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          console.log(ref.current.classList);
           if (ref.current.className.includes("friendsContainer")) {
             setShowFriends(false);
           } else if (ref.current.className.includes("notifContainer")) {
@@ -65,6 +64,12 @@ const Navbar = () => {
   const wrapperReff = useRef(null);
   useOutsideAlerter(wrapperRef);
   useOutsideAlerterr(wrapperReff);
+
+  useEffect(() => {
+    if (profile) {
+      setNewNotif(profile.notifications.filter((n) => !n.read).length > 0 ? true : false);
+    }
+  }, [profile])
 
   return (
     <NavbarContainer>
@@ -94,10 +99,18 @@ const Navbar = () => {
               <Notifications className="notifications" />
               <div className="indicator-not"></div>
             </>
-          )}
-          <FaRegBell
-            onClick={() => setShowNotifications(!showNotifications)}
-          ></FaRegBell>
+          )} 
+          <div
+            className={`bell-btn ${newNotif ? "new-notif" : ""}`}
+          >
+            <FaRegBell
+              className="bell"
+              onClick={() => {
+                setShowNotifications(!showNotifications)
+                setNewNotif(false)
+              }}
+            ></FaRegBell>
+          </div>
         </div>
 
         <div className="friendsContainer" ref={wrapperRef}>

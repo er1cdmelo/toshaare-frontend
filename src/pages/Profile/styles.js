@@ -213,10 +213,8 @@ export const FriendsContainer = styled.div`
         padding: 0;
         border: 1px solid #eee;
         border-radius: 10px;
-        width: 200px;
-        height: 100%;
+
         transition: background-color 0.3s;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
         &:hover {
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

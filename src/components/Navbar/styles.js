@@ -61,17 +61,18 @@ export const Nav = styled.header`
     gap: 1em;
 
     .notifications-btn {
-      &::after {
-        content: ${(props) =>
-          props.newNotifications ? props.newNotifications : "''"};
-        display: ${(props) => (props.newNotifications ? "block" : "none")};
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: #fff;
-        position: absolute;
-        top: 5px;
-        right: 5px;
+      &.new-notif {
+        &::after {
+          content: "";
+          display: "block";
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: #fff;
+          position: absolute;
+          top: 5px;
+          right: 5px;
+        }
       }
 
       &:hover {

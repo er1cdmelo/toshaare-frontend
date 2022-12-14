@@ -14,11 +14,12 @@ const Navbar = () => {
   const photoURL =
     profile && profile.picture
       ? profile.picture
-      : "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
+      : user.photoURL || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [text, setText] = useState("");
+  const [newNotif, setNewNotif] = useState([]);
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
@@ -42,6 +43,13 @@ const Navbar = () => {
 
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
+
+
+  useEffect(() => {
+    if (profile && profile.notifications) {
+      setNewNotif(profile.notifications.filter((notif) => !notif.read).length > 0); 
+    }
+  }, [profile]);
 
   return (
     <Nav>
@@ -71,11 +79,13 @@ const Navbar = () => {
             )}
           </div>
           <button
-            className="notifications-btn btn"
-            onClick={() => setShowNotifications(!showNotifications)}
-            newNotifications={
-              profile.notifications && profile.notifications.filter((n) => !n.read).length
+            className={
+              `notifications-btn btn ${newNotif ? "new-notif" : ""}`
             }
+            onClick={() => {
+              setShowNotifications(!showNotifications)
+              setNewNotif(false)
+            }}
           >
             <FaBell />
           </button>

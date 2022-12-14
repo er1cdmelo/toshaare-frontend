@@ -8,6 +8,8 @@ const useProfileStore = create((set) => ({
     bio: "",
     picture:"https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
     email: "",
+    notifications: "",
+    friends: [],
   },
   setProfile: (profileSet) => {
     set((state) => ({

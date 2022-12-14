@@ -38,10 +38,8 @@ const Post = ({ post }) => {
         }
       );
       const data = await response.json().then((data) => {
-        console.log(data);
         setLiked(false);
         setLikes(data);
-        console.log("disliked");
       });
     } else {
       // if the post is not liked, send a put request to the backend to increment the likes count
@@ -57,10 +55,8 @@ const Post = ({ post }) => {
       const data = await response
         .json()
         .then((data) => {
-          console.log(data);
           setLiked(true);
           setLikes(data);
-          console.log("liked");
         })
         .catch((err) => console.log(err));
     }
@@ -69,7 +65,6 @@ const Post = ({ post }) => {
   // create a function to send a comment to the backend
   const handleComment = async (comment) => {
     const token = user && (await user.getIdToken());
-    console.log(comment);
     const response = await fetch(
       `https://toshaare-api.onrender.com/api/posts/${post.id}/comment`,
       {
@@ -97,7 +92,6 @@ const Post = ({ post }) => {
       "Are you sure you want to delete this post?"
     );
     if (confirm) {
-      console.log(token);
       toast.success("Post deleted successfully", { autoClose: 2000 });
       const response = await fetch(
         `https://toshaare-api.onrender.com/api/posts/${post.id}`,
@@ -111,7 +105,6 @@ const Post = ({ post }) => {
       const data = await response
         .json()
         .then((data) => {
-          console.log(data);
           setShowPost(false);
         })
         .catch((err) => {
@@ -214,7 +207,7 @@ const Post = ({ post }) => {
               Like
             </LikeButton>
           </div>
-          <Comments comments={comments} handleComment={handleComment} />
+          <Comments postID={post.id} comments={comments} handleComment={handleComment} />
         </div>
       )}
     </PostContainer>

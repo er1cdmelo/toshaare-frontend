@@ -39,13 +39,36 @@ export const NavbarContainer = styled.nav`
     align-items: center;
     width: 30%;
 
-    .friendsContainer, .notifContainer {
+    .bell-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      &.new-notif {
+        &::after {
+          content: "";
+          display: "block";
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: #fff;
+          position: absolute;
+          top: 5px;
+          right: 5px;
+        }
+      }
+    }
+
+    .friendsContainer,
+    .notifContainer {
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .notif, .friends {
+    .notif,
+    .friends {
       top: -540%;
       z-index: 1;
       margin: 0;
@@ -64,7 +87,8 @@ export const NavbarContainer = styled.nav`
     }
   }
 
-  .indicator-not, .indicator-fri {
+  .indicator-not,
+  .indicator-fri {
     /* make it a triangle */
     width: 0;
     height: 0;
@@ -110,15 +134,15 @@ export const NavbarContainer = styled.nav`
     z-index: 2;
 
     &.active {
-        img {
-            outline: 6px solid #8390fa;
-        }   
+      img {
+        outline: 6px solid #8390fa;
+      }
     }
 
     &:hover {
-        img {
-            outline: 6px solid #8390fa;
-        }
+      img {
+        outline: 6px solid #8390fa;
+      }
     }
 
     img {

@@ -57,10 +57,9 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (usersearch) {
+    if (usersearch && user) {
       const loadUser = async () => {
         const token = user && (await user.getIdToken());
-
         fetch(`https://toshaare-api.onrender.com/api/users/${usersearch}`, {
           method: "GET",
           headers: {
@@ -92,7 +91,7 @@ const Profile = () => {
   }, [profile, user, usersearch]);
 
   useEffect(() => {
-    user ? console.log(user) : console.log("no user");
+    
     if (user && friends.length) {
       friends.forEach((friend) => {
         if (friend.friends.find((f) => f.uid === thisProfile.uid)) {

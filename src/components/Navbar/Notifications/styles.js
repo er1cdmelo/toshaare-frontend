@@ -11,7 +11,7 @@ export const NotificationsContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 2;
   overflow-y: auto;
   padding: .5em;
   transition: all 0.2s ease-in-out;

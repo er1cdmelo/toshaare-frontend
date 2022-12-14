@@ -3,11 +3,33 @@ import { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useProfileStore from "../../../store/store";
+import Options from "../Options/Options";
+import useUser from "../../../hooks/useUser";
+import { getIdToken } from "firebase/auth";
 
-const Comments = ({ comments, handleComment }) => {
+const Comments = ({ postID, comments, handleComment }) => {
+  const { user } = useUser();
   const profile = useProfileStore((state) => state.profile);
-  comments = comments ? comments : [];
+  const [commentsArr, setCommentsArr] = useState(comments || []);
   const [comment, setComment] = useState({ body: "", username: profile && profile.username, picture: profile && profile.picture, bName: profile && profile.name });
+
+  const handleDelete = async (id)  => {
+    const token = user && (await user.getIdToken());
+    fetch(`http://localhost:8000/api/posts/${postID}/comment/${id}`, 
+    {
+      method: "DELETE",
+      headers: {
+        authToken: token,
+        },
+      }
+      )
+      .then((res) => res.json())
+      .then((data) => {
+        setCommentsArr(data);
+      }
+    )
+    .catch((err) => console.log(err));
+  }
 
   return (
     <CommentsContainer>
@@ -27,8 +49,8 @@ const Comments = ({ comments, handleComment }) => {
           <FaPaperPlane />
         </button>
       </CommentForm>
-      {comments.length ? (
-        comments.map((comment) => (
+      {commentsArr.length ? (
+        commentsArr.map((comment) => (
           <Comment key={comment.id}>
             <Link to={`/profile/${comment.user.username}`}>
             <img src={comment.user.profilePicture || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"} alt="avatar" loading="lazy"/>
@@ -37,6 +59,9 @@ const Comments = ({ comments, handleComment }) => {
               <span className="user">{comment.user.name || 'Guest'}</span>
               <span className="body">{comment.body}</span>
             </div>
+            <Options post={comment} handleDelete={() => {
+              handleDelete(comment.id)
+              }}/>
           </Comment>
         ))
       ) : (

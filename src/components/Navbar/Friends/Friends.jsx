@@ -3,8 +3,11 @@ import useProfileStore from "../../../store/store"
 import { useEffect } from "react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import useUser from "../../../hooks/useUser"
+import { getIdToken } from "firebase/auth"
 
 const Friends = () => {
+  const { user } = useUser()
   const [friends, setFriends] = useState([])
   const profile = useProfileStore(state => state.profile)
 
@@ -12,13 +15,22 @@ const Friends = () => {
     if (profile) {
       setFriends(profile.friends)
     }
-  }, [])
+  }, [profile])
 
   useEffect(() => {
     if (friends && profile) {
       // fetch all user's friends to check if the friend has the user as a friend
       friends.forEach(friend => {
-        fetch(`http://localhost:3001/profile/${friend.username}`)
+        const loadFriend = async () => {
+          const token = user && await user.getIdToken()
+          fetch(`https://toshaare-api.onrender.com/api/users/${friend.username}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            authtoken: token,
+            reqm: 'username'
+            }
+            })
           .then(res => res.json())
           .then(data => {
             // if the user is not a friend of the friend, remove the friend
@@ -27,9 +39,11 @@ const Friends = () => {
               setFriends(newFriends)
             }
           })
+        }
+        loadFriend()
       })
     }
-  }, [friends])
+  }, [friends, profile])
 
   return (
     <Container className="friends">

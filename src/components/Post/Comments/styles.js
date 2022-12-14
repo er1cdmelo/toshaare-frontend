@@ -22,6 +22,7 @@ export const Comment = styled.div`
     max-width: 600px;
     /* make a slip down effect */
     animation: slipDown 0.5s ease-in-out;
+    position: relative;
 
     @keyframes slipDown {
         from {

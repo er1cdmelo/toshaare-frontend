@@ -4,6 +4,7 @@ import useUser from "../../hooks/useUser";
 import Post from "../../components/Post/Post";
 import AddPost from "../../components/Post/AddPost/AddPost";
 import Friends from "../../components/Navbar/Friends/Friends";
+import LoadingScreen from "../../components/Loading/LoadingScreen/LoadingScreen";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getIdToken } from "firebase/auth";
@@ -62,7 +63,9 @@ const Feed = () => {
           .then((res) => res.json())
           .then((data) => {
             setProfile(data);
-            setLoading(false);
+            if(posts) {
+              setLoading(false);
+            }
           })
           .catch((err) => console.log(err));
       };
@@ -86,12 +89,7 @@ const Feed = () => {
           )}
         </>) :
         (
-          <div className="loading">
-            <CgSearchLoading />
-            <h2>
-              Loading posts...
-            </h2>
-          </div>
+          <LoadingScreen />
         )}
         <Friends />
     </Container>

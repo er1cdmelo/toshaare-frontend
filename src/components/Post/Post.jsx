@@ -9,6 +9,7 @@ import { getIdToken } from "firebase/auth";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import useProfileStore from "../../store/store";
 
 const Post = ({ post }) => {
   const { user } = useUser();
@@ -18,6 +19,7 @@ const Post = ({ post }) => {
   );
   const [comments, setComments] = useState(post.comments ? post.comments : []);
   const [showPost, setShowPost] = useState(true);
+  const profile = useProfileStore((state) => state.profile);
 
   useEffect(() => {
     setLiked(likes && user ? likes.includes(user.uid) : false);
@@ -157,6 +159,31 @@ const Post = ({ post }) => {
         ].substring(0, 3)} ${new Date(date).getFullYear()}`;
   };
 
+  const handleDeleteComment = async (id)  => {
+    const token = user && (await user.getIdToken());
+    // confirm the deletion
+    const confirm = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
+    if (confirm) {
+      fetch(`https://toshaare-api.onrender.com/api/posts/${post.id}/comment/${id}`, 
+    {
+      method: "DELETE",
+      headers: {
+        authToken: token,
+        },
+      }
+      )
+      .then((res) => res.json())
+      .then((data) => {
+        setComments(data);
+        toast.success("Comment deleted", { autoClose: 2000 });
+      }
+    )
+    .catch((err) => console.log(err));
+    }
+  }
+
   return (
     <PostContainer show={showPost}>
       {post && (
@@ -188,9 +215,6 @@ const Post = ({ post }) => {
           <Options post={post} handleDelete={handleDelete} />
           <p
             className="body"
-            onClick={() => {
-              console.log("liked: ", liked);
-            }}
           >
             {post.body}
           </p>
@@ -207,7 +231,7 @@ const Post = ({ post }) => {
               Like
             </LikeButton>
           </div>
-          <Comments postID={post.id} comments={comments} handleComment={handleComment} />
+          <Comments comments={comments} handleComment={handleComment} handleDelete={handleDeleteComment}/>
         </div>
       )}
     </PostContainer>

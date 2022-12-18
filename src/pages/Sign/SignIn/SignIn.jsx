@@ -24,7 +24,6 @@ const SignIn = () => {
         }, 1000);
       
     } catch (error) {
-      console.log('Deu erro')
       const errorMessage = error.message.substring(error.message.indexOf('(') + 1, error.message.indexOf(')')).replaceAll('-', ' ');
       toast.dismiss(message);
       toast.error(errorMessage, { autoClose: 2000 });

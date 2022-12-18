@@ -8,23 +8,17 @@ const Notifications = () => {
   const profile = useProfileStore((state) => state.profile);
   const [notifications, setNotifications] = useState([]);
   const { user } = useUser();
-  console.log(user)
 
   useEffect(() => {
     if (profile) {
       setNotifications(profile.notifications || []);
-      console.log(profile.notifications);
     }
   }, [profile]);
 
   useEffect(() => {
     // on notification click, set all notifications to read
     const handleNotificationClick = async () => {
-      console.log("handleNotificationClick");
-      console.log("profile", profile);
-      console.log("user", user);
       if (profile && user) {
-        console.log("indo...");
         const token = user && (await user.getIdToken());
         fetch(`https://toshaare-api.onrender.com/api/users/${user.uid}/notifications`, {
           method: "PUT",
@@ -35,7 +29,6 @@ const Notifications = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("SIM!!!!!!");
             setNotifications(data);
           })
           .catch((err) => console.log(err));
@@ -44,8 +37,6 @@ const Notifications = () => {
 
     handleNotificationClick();
   }, [user]);
-
-  console.log("Notifications bar appeared");
 
   return (
     <NotificationsContainer className="notif">

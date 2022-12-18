@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import RoutesPath from "./routes/RoutesPath";
 import Navbar from "./components/Navbar/Navbar";
@@ -23,7 +23,7 @@ function App() {
   
 
   return (
-    <Router>
+    <BrowserRouter>
       <MainContent>
         <ToastContainer autoClose={2000} />
         <Navbar />
@@ -32,7 +32,7 @@ function App() {
           profile.name !== "Guest" ? <Mnavbar /> : null
         }
       </MainContent>
-    </Router>
+    </BrowserRouter>
   );
 }
 

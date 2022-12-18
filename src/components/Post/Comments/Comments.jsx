@@ -1,35 +1,19 @@
 import { CommentsContainer, Comment, CommentForm } from "./styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useProfileStore from "../../../store/store";
 import Options from "../Options/Options";
 import useUser from "../../../hooks/useUser";
 import { getIdToken } from "firebase/auth";
+import { toast } from "react-toastify";
 
-const Comments = ({ postID, comments, handleComment }) => {
-  const { user } = useUser();
+const Comments = ({ comments, handleComment, handleDelete }) => {
   const profile = useProfileStore((state) => state.profile);
-  const [commentsArr, setCommentsArr] = useState(comments || []);
-  const [comment, setComment] = useState({ body: "", username: profile && profile.username, picture: profile && profile.picture, bName: profile && profile.name });
+  const [comment, setComment] = useState({ body: "", username: profile.username, picture: profile.picture, bName: profile.name });
 
-  const handleDelete = async (id)  => {
-    const token = user && (await user.getIdToken());
-    fetch(`https://toshaare-api.onrender.com/api/posts/${postID}/comment/${id}`, 
-    {
-      method: "DELETE",
-      headers: {
-        authToken: token,
-        },
-      }
-      )
-      .then((res) => res.json())
-      .then((data) => {
-        setCommentsArr(data);
-      }
-    )
-    .catch((err) => console.log(err));
-  }
+  
+
 
   return (
     <CommentsContainer>
@@ -49,8 +33,8 @@ const Comments = ({ postID, comments, handleComment }) => {
           <FaPaperPlane />
         </button>
       </CommentForm>
-      {commentsArr.length ? (
-        commentsArr.map((comment) => (
+      {comments.length ? (
+        comments.map((comment) => (
           <Comment key={comment.id}>
             <Link to={`/profile/${comment.user.username}`}>
             <img src={comment.user.profilePicture || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"} alt="avatar" loading="lazy"/>

@@ -42,7 +42,7 @@ const EditProfile = ({ closeModal }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log('');
       })
       .catch((err) => console.log(err));
   };

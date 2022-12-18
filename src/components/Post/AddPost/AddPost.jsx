@@ -19,7 +19,6 @@ const AddPost = ({ add }) => {
   };
 
   const handleSubmit = async () => {
-    console.log(post)
     if (post.body.length < 1) return;
     const token = user && (await user.getIdToken());
     setLoading(true);
@@ -36,7 +35,6 @@ const AddPost = ({ add }) => {
       .then((res) => res.json())
       .then((data) => {
         toast.success("Post added successfully", { autoClose: 2000 });
-        console.log(data);
         add(data);
         setLoading(false);
         setPost({body: "" });

@@ -21,7 +21,6 @@ const Options = ({ post, handleDelete }) => {
       <OptionsButton
         onClick={() => {
           setShowOptions(!showOptions);
-          console.log(showOptions);
         }}
       >
         <FaEllipsisH />
@@ -30,7 +29,6 @@ const Options = ({ post, handleDelete }) => {
         <OptionsContainer>
           {canEdit && (
             <>
-              <button>Edit</button>
               <button onClick={handleDelete}>Delete</button>
             </>
           )}

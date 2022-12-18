@@ -54,8 +54,8 @@ export const NavbarContainer = styled.nav`
           border-radius: 50%;
           background-color: #fff;
           position: absolute;
-          top: 5px;
-          right: 5px;
+          top: 6px;
+          right: 6px;
         }
       }
     }

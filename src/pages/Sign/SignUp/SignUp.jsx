@@ -32,7 +32,6 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         setAllUsers(data);
-        console.log(data);
       });
   }, []);
 
@@ -57,7 +56,7 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log('');
       })
       .catch((err) => console.log(err));
   };

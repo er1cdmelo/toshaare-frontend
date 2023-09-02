@@ -14,7 +14,7 @@ const Navbar = () => {
   const photoURL =
     profile && profile.picture
       ? profile.picture
-      : user.photoURL || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
+      : user?.photoURL || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
